@@ -4,8 +4,252 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zeroplay.site - Free Steam Accounts</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- =========== CSS STYLES =========== -->
+    <style>
+        /* General Body Styles */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header and Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #7d2ae8;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #7d2ae8;
+        }
+
+        /* Main Content Area */
+        main {
+            padding: 2rem 5%;
+        }
+
+        .title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        main h2 {
+            margin: 0;
+            flex-grow: 1;
+            font-size: 2.5em;
+            color: #fff;
+        }
+        
+        /* Search Bar */
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #search-bar {
+            padding: 12px 20px;
+            width: 300px;
+            background-color: #2a2a2a;
+            border: 2px solid #3a3a3a;
+            border-radius: 50px;
+            color: #e0e0e0;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        #search-bar:focus {
+            outline: none;
+            border-color: #7d2ae8;
+            width: 350px;
+        }
+
+        /* Game Grid Layout */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Individual Game Card Styling */
+        .game-card {
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(125, 42, 232, 0.3);
+        }
+        
+        /* === THIS IS THE KEY FIX === */
+        .image-container {
+            width: 100%;
+            aspect-ratio: 3 / 4; /* Enforces a perfect poster-like shape */
+            overflow: hidden; /* Hides any part of the image that spills out */
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Fills the container, cropping instead of stretching */
+            transition: transform 0.4s ease;
+        }
+        
+        .game-card:hover img {
+            transform: scale(1.05); /* Subtle zoom on hover */
+        }
+        /* ============================ */
+        
+        .game-card h3 {
+            font-size: 1.4em;
+            margin: 1rem;
+            color: #fff;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 56px; /* Ensures consistent title height */
+        }
+
+        /* Button Group Styling */
+        .button-group {
+            display: flex;
+            gap: 10px;
+            padding: 0 1rem 1.5rem 1rem;
+        }
+
+        .btn {
+            flex-grow: 1;
+            text-align: center;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease, background 0.3s ease;
+            padding: 12px 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .info-btn {
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+
+        .account-btn {
+            background: linear-gradient(45deg, #7d2ae8, #5b00d1);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Styles for the Modal Popup --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.85);
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes slideIn { from { transform: translateY(-60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .modal-body { display: flex; gap: 30px; }
+        .modal-body img { width: 40%; max-width: 320px; object-fit: cover; border-radius: 10px; }
+        .modal-info { width: 60%; }
+        .modal-info h2 { font-size: 2.5em; color: #7d2ae8; margin-top: 0; margin-bottom: 20px; }
+        .modal-info h3 { color: #fff; border-bottom: 2px solid #7d2ae8; padding-bottom: 5px; margin-top: 25px; }
+        .modal-info p { color: #ccc; line-height: 1.6; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; background-color: #2a2a2a; padding: 15px; border-radius: 8px; }
+        .info-grid div, .modal-info p { font-size: 1.1em; }
+        .info-grid strong { color: #fff; }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .modal-body { flex-direction: column; align-items: center; }
+            .modal-body img, .modal-info { width: 100%; }
+            main h2 { text-align: center; width: 100%; }
+            #search-bar, #search-bar:focus { width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
@@ -14,31 +258,143 @@
         <nav>
             <a href="#">Home</a>
             <a href="#">About</a>
-            <a href="#">Gaming News</a>
         </nav>
     </header>
 
     <main>
-        <h2>Available Game Accounts</h2>
-        <section class="game-grid">
+        <div class="title-container">
+            <h2>Available Game Accounts</h2>
+            <div class="search-wrapper">
+                <input type="text" id="search-bar" placeholder="Search for a game...">
+            </div>
+        </div>
+        <section id="game-grid" class="game-grid">
+
+            <!-- I've wrapped each image in a div with the class "image-container" -->
 
             <!-- Game Card 1: Cyberpunk 2077 -->
-            <div class="game-card">
-                <img src="https://image.api.playstation.com/vulcan/ap/rnd/202111/3013/2tW2zf7n8wwwWXZO9dAQMVu5.png" alt="Cyberpunk 2077">
+            <div class="game-card" 
+                 data-name="Cyberpunk 2077"
+                 data-genre="Action RPG"
+                 data-size="~70 GB"
+                 data-theme="Cyberpunk, Open World, Sci-Fi"
+                 data-story="Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification."
+                 data-explanation="As V, a mercenary outlaw, you go after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you."
+                 data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx_OX9TQaJsqRP4WSfeyGoQ2Nv3XUT0t6ebA&s">
+                <div class="image-container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx_OX9TQaJsqRP4WSfeyGoQ2Nv3XUT0t6ebA&s" alt="Cyberpunk 2077" loading="lazy">
+                </div>
                 <h3>Cyberpunk 2077</h3>
-                <a href="https://your-gplink-or-shrinkme-link-here" target="_blank" class="btn">Get Account</a>
+                <div class="button-group">
+                    <button class="btn info-btn">View Info</button>
+                    <a href="https://your-link.com" target="_blank" class="btn account-btn">Get Account</a>
+                </div>
             </div>
 
             <!-- Game Card 2: Red Dead Redemption 2 -->
-            <div class="game-card">
-                <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2618/Y02ljdBodKFBiziorYgqftLE.png" alt="Red Dead Redemption 2">
+            <div class="game-card"
+                 data-name="Red Dead Redemption 2"
+                 data-genre="Action-Adventure"
+                 data-size="~150 GB"
+                 data-theme="Western, Open World"
+                 data-story="America, 1899. The end of the wild west era has begun as lawmen hunt down the last remaining outlaw gangs. Those who will not surrender or succumb are killed."
+                 data-explanation="After a robbery goes badly wrong in the western town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive."
+                 data-image="https://upload.wikimedia.org/wikipedia/en/a/a7/Red_Dead_Redemption.jpg">
+                <div class="image-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a7/Red_Dead_Redemption.jpg" alt="Red Dead Redemption 2" loading="lazy">
+                </div>
                 <h3>Red Dead Redemption 2</h3>
-                <a href="https://cuty.io/CaKlZYop" target="_blank" class="btn">Get Account</a>
+                 <div class="button-group">
+                    <button class="btn info-btn">View Info</button>
+                    <a href="https://your-link.com" target="_blank" class="btn account-btn">Get Account</a>
+                </div>
             </div>
+            
+            <!-- Game Card 3: Elden Ring -->
+            <div class="game-card"
+                 data-name="Elden Ring"
+                 data-genre="Action RPG"
+                 data-size="~60 GB"
+                 data-theme="Fantasy, Dark Souls-like"
+                 data-story="The Golden Order has been broken. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between."
+                 data-explanation="A vast world where open fields with a variety of situations and huge dungeons with complex and three-dimensional designs are seamlessly connected. As you explore, the joy of discovering unknown and overwhelming threats await you, leading to a high sense of accomplishment."
+                 data-image="https://m.media-amazon.com/images/M/MV5BMWNlMDBiYzYtMWMyMC00Zjc5LTlhMjItMjRlMzBmYmVkOGM0XkEyXkFqcGc@._V1_QL75_UY281_CR4,0,190,281_.jpg">
+                <div class="image-container">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMWNlMDBiYzYtMWMyMC00Zjc5LTlhMjItMjRlMzBmYmVkOGM0XkEyXkFqcGc@._V1_QL75_UY281_CR4,0,190,281_.jpg" alt="Elden Ring" loading="lazy">
+                </div>
+                <h3>Elden Ring</h3>
+                 <div class="button-group">
+                    <button class="btn info-btn">View Info</button>
+                    <a href="https://your-link.com" target="_blank" class="btn account-btn">Get Account</a>
+                </div>
             </div>
-
+            
         </section>
     </main>
+
+    <!-- The Modal -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <img id="modal-img" src="" alt="Game Image">
+                <div class="modal-info">
+                    <h2 id="modal-title"></h2>
+                    <div class="info-grid">
+                        <div><strong>Genre:</strong> <span id="modal-genre"></span></div>
+                        <div><strong>Size:</strong> <span id="modal-size"></span></div>
+                    </div>
+                    <p><strong>Theme:</strong> <span id="modal-theme"></span></p>
+                    <h3>Story</h3>
+                    <p id="modal-story"></p>
+                    <h3>Gameplay</h3>
+                    <p id="modal-explanation"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== JAVASCRIPT =========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameGrid = document.getElementById('game-grid');
+            const searchBar = document.getElementById('search-bar');
+            const modal = document.getElementById('game-modal');
+            const closeBtn = document.querySelector('.close-btn');
+
+            searchBar.addEventListener('keyup', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const gameCards = gameGrid.getElementsByClassName('game-card');
+                for (let card of gameCards) {
+                    let title = card.querySelector('h3').textContent.toLowerCase();
+                    card.style.display = title.includes(searchTerm) ? 'flex' : 'none';
+                }
+            });
+
+            gameGrid.addEventListener('click', function(e) {
+                const infoButton = e.target.closest('.info-btn');
+                if (infoButton) {
+                    const card = infoButton.closest('.game-card');
+                    document.getElementById('modal-img').src = card.dataset.image;
+                    document.getElementById('modal-title').textContent = card.dataset.name;
+                    document.getElementById('modal-genre').textContent = card.dataset.genre;
+                    document.getElementById('modal-size').textContent = card.dataset.size;
+                    document.getElementById('modal-theme').textContent = card.dataset.theme;
+                    document.getElementById('modal-story').textContent = card.dataset.story;
+                    document.getElementById('modal-explanation').textContent = card.dataset.explanation;
+                    modal.style.display = 'block';
+                }
+            });
+
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => { if (e.target == modal) closeModal(); });
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+        });
+    </script>
 
 </body>
 </html>
